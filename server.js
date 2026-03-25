@@ -7,7 +7,7 @@ const PORT = 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname)); // Serves files from the root folder
 
 // --- CACHE CONTROL MIDDLEWARE ---
 app.use((req, res, next) => {
@@ -193,4 +193,5 @@ app.get('/api/admin/shortage/:course', (req, res) => {
     res.json(shortageList);
 });
 
-app.listen(PORT, () => console.log(`Server running at http://localhost:3000`));
+// Vercel needs the app to be exported, not listened to
+module.exports = app;
